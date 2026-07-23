@@ -4,9 +4,9 @@
 
 **Goal:** Build and deploy brycecampbell.com — a static portfolio + blog ("workbench") with a cutting-mat design system, projects and posts content collections, and adaptive project pages.
 
-**Architecture:** Fully static Astro 6 site. Two content collections (`projects`, `posts`) with zod-typed frontmatter drive every page. Theming is CSS custom properties switched by a `data-theme` attribute ("Black Mat" default, "Green Mat" alternate) with a no-flash inline script. One pure TypeScript utility (`buildActivity`) merges collections for the homepage stream and is unit-tested with vitest; everything else is verified by `astro check` + production builds + grep on `dist/`.
+**Architecture:** Fully static Astro site (v7 as installed). Two content collections (`projects`, `posts`) with zod-typed frontmatter drive every page. Theming is CSS custom properties switched by a `data-theme` attribute ("Black Mat" default, "Green Mat" alternate) with a no-flash inline script. One pure TypeScript utility (`buildActivity`) merges collections for the homepage stream and is unit-tested with vitest; everything else is verified by `astro check` + production builds + grep on `dist/`.
 
-**Tech Stack:** Astro ^6, Tailwind CSS ^4 (via `@tailwindcss/vite`), MDX (`@astrojs/mdx`), `@astrojs/rss`, TypeScript (strict), vitest, Vercel.
+**Tech Stack:** Astro ^7 (resolved 7.1.3 at install), Tailwind CSS ^4 (via `@tailwindcss/vite`), MDX (`@astrojs/mdx`), `@astrojs/rss`, TypeScript (strict), vitest, Vercel.
 
 **Spec:** `docs/superpowers/specs/2026-07-23-brycecampbell-com-design.md`
 
@@ -93,7 +93,7 @@ Run:
 npm install astro @astrojs/mdx @astrojs/rss tailwindcss @tailwindcss/vite
 npm install -D @astrojs/check typescript vitest
 ```
-Expected: installs succeed; `package.json` gains dependency entries (astro should resolve to ^6).
+Expected: installs succeed; `package.json` gains dependency entries (astro resolved to ^7 — plan originally said 6; v7 verified working).
 
 - [ ] **Step 3: Write config files**
 
