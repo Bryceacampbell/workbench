@@ -74,7 +74,7 @@ Out of scope for v1: resume/CV page, contact form, comments, analytics, search, 
 
 ## Theming — the Cutting Mat system
 
-Inspired by the Work Louder self-healing cutting mat (black side / green side).
+Inspired by the Work Louder self-healing cutting mat (black side / green side). Reference photos: `docs/design-refs/cutting-mat-angled.webp` and `docs/design-refs/cutting-mat-flat.avif`. The flat photo defines the wider decoration vocabulary (edge rulers, corner label block, angle guides, dotted grid) — grid, ruler strip, and a footer label block are v1; the rest is future polish.
 
 - **Two themes** via CSS custom properties on `data-theme` attribute:
   - **Black Mat** — default for all visitors regardless of system preference. Near-black base (`#1a1b1d` family), subtle grid, **mint green accent** (`#3ddc97` family) on labels, links, category tags, card accents, logo mark.

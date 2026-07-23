@@ -22,6 +22,7 @@
 - Monospace for labels/nav/specs, sans-serif for body — system font stacks only, no webfont files.
 - No placeholder content ships: every content file is real. Content requiring Bryce's input (keyboard build, /uses gear list) is gathered in Task 11 — do not invent specs, gear, or dates.
 - Internal links use trailing slashes (`/projects/`, `/writing/foo/`) to match Astro's default `directory` build format.
+- Design reference photos live in `docs/design-refs/` (Work Louder cutting mats, angled + flat). The mat's visual vocabulary — grid with major/minor lines, edge rulers, corner label block, angle guides, dotted grid — is the approved decoration palette. Use it sparingly; grid + ruler + label block are in scope now, angle guides/dotted grid are future polish, not v1.
 - Every task ends with a commit. Run all commands from the repo root.
 
 ## File Structure
@@ -476,6 +477,9 @@ const year = new Date().getFullYear();
         <a class="transition-colors hover:text-accent" href="mailto:bryceacampbell7@gmail.com">email</a>
       </span>
     </div>
+    <p class="mt-3 text-right font-mono text-[9px] uppercase tracking-wider text-muted opacity-70">
+      bc_ · self healing · est. ©2026 · all code &amp; some solder
+    </p>
   </div>
   <div class="ruler" aria-hidden="true">
     {ticks.map((t) => <span>{t}</span>)}
