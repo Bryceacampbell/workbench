@@ -1,0 +1,93 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SpecSheet from '../../components/SpecSheet.astro';
+import GalleryGrid from '../../components/GalleryGrid.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { title, description, category, date, status, links, cover, gallery, specs } = project.data;
+const { Content } = await render(project);
+
+const relatedPosts = (await getCollection('posts'))
+  .filter((p) => p.data.project?.id === project.id)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const fmt = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
+---
+
+<BaseLayout title={`${title} — Bryce Campbell`} description={description}>
+  <p class="font-mono text-xs uppercase tracking-widest text-accent">{category}</p>
+  <h1 class="mt-1 text-3xl font-extrabold">{title}</h1>
+  <p class="mt-2 text-muted">{description}</p>
+  <p class="mt-2 font-mono text-xs text-muted">{fmt.format(date)} · {status}</p>
+
+  {
+    (links?.repo || links?.live) && (
+      <div class="mt-4 flex gap-3 font-mono text-sm">
+        {links?.repo && (
+          <a
+            href={links.repo}
+            class="border border-accent px-3 py-1 text-accent transition-colors hover:bg-accent hover:text-accent-ink"
+          >
+            repo ↗
+          </a>
+        )}
+        {links?.live && (
+          <a
+            href={links.live}
+            class="border border-accent px-3 py-1 text-accent transition-colors hover:bg-accent hover:text-accent-ink"
+          >
+            live ↗
+          </a>
+        )}
+      </div>
+    )
+  }
+
+  {
+    cover && (
+      <Image
+        src={cover}
+        alt={title}
+        widths={[800, 1600]}
+        sizes="(min-width: 768px) 768px, 100vw"
+        class="mt-8 w-full"
+      />
+    )
+  }
+
+  {specs && <div class="mt-8"><SpecSheet specs={specs} /></div>}
+
+  {gallery.length > 0 && <div class="mt-8"><GalleryGrid images={gallery} title={title} /></div>}
+
+  <div class="mdx-body mt-8"><Content /></div>
+
+  {
+    relatedPosts.length > 0 && (
+      <section class="mt-10">
+        <h2 class="mb-3 font-mono text-xs uppercase tracking-widest text-muted">Build logs & posts</h2>
+        <ul>
+          {relatedPosts.map((p) => (
+            <li class="border-t border-rule last:border-b">
+              <a
+                href={`/writing/${p.id}/`}
+                class="flex items-baseline justify-between gap-4 py-2.5 transition-colors hover:text-accent"
+              >
+                <span>{p.data.title}</span>
+                <span class="shrink-0 font-mono text-xs text-muted">
+                  {new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(p.data.pubDate)}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</BaseLayout>
