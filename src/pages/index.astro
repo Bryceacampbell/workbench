@@ -1,5 +1,19 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ActivityList from '../components/ActivityList.astro';
+import { buildActivity } from '../lib/activity';
+
+const projects = await getCollection('projects');
+const posts = await getCollection('posts');
+
+const featured = projects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const activity = buildActivity(projects, posts, 8);
 ---
 
 <BaseLayout
@@ -10,4 +24,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     The workbench of<br />Bryce Campbell
   </h1>
   <p class="mt-2 font-mono text-sm text-accent">// software · keyboards · CAD · PCB</p>
+
+  {
+    featured.length > 0 && (
+      <section class="mt-10">
+        <h2 class="mb-3 font-mono text-xs uppercase tracking-widest text-muted">Featured</h2>
+        <div class="grid gap-4 sm:grid-cols-2">
+          {featured.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <section class="mt-10">
+    <h2 class="mb-3 font-mono text-xs uppercase tracking-widest text-muted">Recent activity</h2>
+    <ActivityList items={activity} />
+  </section>
 </BaseLayout>
