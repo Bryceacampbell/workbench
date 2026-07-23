@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About — Bryce Campbell"
+  description="Senior software engineer, keyboard builder, and maker of things."
+>
+  <h1 class="text-2xl font-extrabold">About</h1>
+
+  <div class="mdx-body mt-6">
+    <p>
+      I'm Bryce — a senior software engineer, most recently five years at Carvana. I love
+      writing code, and the side projects on this site are what happens when that doesn't
+      switch off at the end of the workday.
+    </p>
+    <p>
+      My other obsession is building keyboards: sourcing switches, tuning stabilizers,
+      flashing QMK, and generally spending unreasonable amounts of attention on the thing
+      I type on. That hobby keeps pulling me deeper down the hardware rabbit hole — I'm
+      currently learning CAD and PCB design, and writing about it as I go.
+    </p>
+    <p>
+      This site is the workbench where all of it lands: software, keyboards, and whatever
+      gets made next.
+    </p>
+  </div>
+
+  <div class="mt-8 flex gap-3 font-mono text-sm">
+    <a
+      href="https://github.com/Bryceacampbell"
+      class="border border-accent px-3 py-1 text-accent transition-colors hover:bg-accent hover:text-accent-ink"
+    >
+      github ↗
+    </a>
+    <a
+      href="mailto:bryceacampbell7@gmail.com"
+      class="border border-accent px-3 py-1 text-accent transition-colors hover:bg-accent hover:text-accent-ink"
+    >
+      email
+    </a>
+  </div>
+</BaseLayout>
