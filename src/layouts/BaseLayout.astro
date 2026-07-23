@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" data-theme="black">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Bryce Campbell — Writing"
+      href={new URL('rss.xml', Astro.site)}
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <script is:inline>
+      // Apply saved theme before first paint — no flash. Black Mat is the default.
+      document.documentElement.dataset.theme =
+        localStorage.getItem('theme') === 'green' ? 'green' : 'black';
+    </script>
+  </head>
+  <body class="flex min-h-dvh flex-col font-sans text-ink">
+    <!-- Nav goes here (Task 3) -->
+    <main class="mx-auto w-full max-w-3xl flex-1 px-5 py-10">
+      <slot />
+    </main>
+    <!-- Footer goes here (Task 3) -->
+  </body>
+</html>

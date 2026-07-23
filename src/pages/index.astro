@@ -1,14 +1,13 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bryce Campbell</title>
-  </head>
-  <body>
-    <h1 class="text-2xl font-bold">Workbench under construction</h1>
-  </body>
-</html>
+
+<BaseLayout
+  title="Bryce Campbell — software, keyboards, CAD & PCB"
+  description="The workbench of Bryce Campbell: software projects, keyboard builds, and notes on CAD and PCB design."
+>
+  <h1 class="text-3xl font-extrabold leading-tight sm:text-4xl">
+    The workbench of<br />Bryce Campbell
+  </h1>
+  <p class="mt-2 font-mono text-sm text-accent">// software · keyboards · CAD · PCB</p>
+</BaseLayout>

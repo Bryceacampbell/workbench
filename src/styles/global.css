@@ -1,1 +1,113 @@
 @import "tailwindcss";
+
+/* ---------- Cutting-mat themes ----------
+   Black Mat is the default (also for no-JS visitors via :root fallback).
+   Green Mat is the flip side, toggled via data-theme on <html>. */
+:root,
+:root[data-theme='black'] {
+  --bg: #1a1b1d;
+  --bg-layer: none;
+  --grid-minor: rgba(255, 255, 255, 0.045);
+  --grid-major: rgba(255, 255, 255, 0.1);
+  --text: #e9eaec;
+  --muted-c: #9aa0a6;
+  --accent-c: #3ddc97;
+  --accent-ink-c: #101112;
+  --surface-c: #212326;
+  --surface-border-c: #34373b;
+  --surface-text-c: #e9eaec;
+  --surface-muted-c: #9aa0a6;
+  --surface-accent-c: #3ddc97;
+  --rule-c: #34373b;
+  --ruler-bg: #141517;
+  --ruler-border: #2a2c2f;
+  --ruler-text: #6a6f75;
+}
+
+:root[data-theme='green'] {
+  --bg: #2ebd85;
+  --bg-layer: linear-gradient(135deg, #0f8a5f 0%, #2ebd85 55%, #49d19c 100%);
+  --grid-minor: rgba(255, 255, 255, 0.14);
+  --grid-major: rgba(255, 255, 255, 0.35);
+  --text: #ffffff;
+  --muted-c: rgba(255, 255, 255, 0.85);
+  --accent-c: #ffffff;
+  --accent-ink-c: #0f8a5f;
+  --surface-c: rgba(255, 255, 255, 0.94);
+  --surface-border-c: rgba(255, 255, 255, 0.94);
+  --surface-text-c: #1e2a25;
+  --surface-muted-c: #5b6660;
+  --surface-accent-c: #0f8a5f;
+  --rule-c: rgba(255, 255, 255, 0.4);
+  --ruler-bg: rgba(255, 255, 255, 0.16);
+  --ruler-border: rgba(255, 255, 255, 0.4);
+  --ruler-text: rgba(255, 255, 255, 0.9);
+}
+
+/* Map tokens into Tailwind v4 utilities (text-ink, bg-surface, border-rule, …) */
+@theme inline {
+  --color-ink: var(--text);
+  --color-muted: var(--muted-c);
+  --color-accent: var(--accent-c);
+  --color-accent-ink: var(--accent-ink-c);
+  --color-surface: var(--surface-c);
+  --color-surface-border: var(--surface-border-c);
+  --color-surface-text: var(--surface-text-c);
+  --color-surface-muted: var(--surface-muted-c);
+  --color-surface-accent: var(--surface-accent-c);
+  --color-rule: var(--rule-c);
+}
+
+/* Mat surface: base color + optional gradient on <html>, grid lines on <body>.
+   Fine grid every 20px, heavier major line every 100px — pure CSS, no images. */
+html {
+  background-color: var(--bg);
+  background-image: var(--bg-layer);
+  background-attachment: fixed;
+}
+
+body {
+  color: var(--text);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+  background-size:
+    100px 100px,
+    100px 100px,
+    20px 20px,
+    20px 20px;
+}
+
+/* Theme-toggle glyph visibility (used by ThemeToggle component) */
+:root[data-theme='black'] [data-when='green'] { display: none; }
+:root[data-theme='green'] [data-when='black'] { display: none; }
+
+/* ---------- Long-form MDX content ---------- */
+.mdx-body {
+  line-height: 1.75;
+}
+.mdx-body > * + * { margin-top: 1em; }
+.mdx-body h2 { margin-top: 2em; font-size: 1.25rem; font-weight: 800; }
+.mdx-body h3 { margin-top: 1.5em; font-weight: 700; }
+.mdx-body a { color: var(--accent-c); text-decoration: underline; }
+.mdx-body ul { list-style: disc; padding-left: 1.5rem; }
+.mdx-body ol { list-style: decimal; padding-left: 1.5rem; }
+.mdx-body li + li { margin-top: 0.35em; }
+.mdx-body blockquote { border-left: 3px solid var(--accent-c); padding-left: 1rem; color: var(--muted-c); }
+.mdx-body code { font-family: var(--font-mono); font-size: 0.875em; }
+.mdx-body :not(pre) > code {
+  background: var(--surface-c);
+  border: 1px solid var(--surface-border-c);
+  color: var(--surface-text-c);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+.mdx-body pre {
+  padding: 1rem;
+  border: 1px solid var(--surface-border-c);
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+.mdx-body img { width: 100%; height: auto; }
